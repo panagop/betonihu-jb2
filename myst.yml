@@ -16,6 +16,7 @@ project:
         - file: notebooks/mix_design.md
     - file: notebooks/bending.md
     - file: notebooks/sample.ipynb
+    - file: notebooks/interactive_demo.md
     - file: notebooks/references.md
 
 site:
