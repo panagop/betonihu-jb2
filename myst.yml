@@ -8,6 +8,7 @@ project:
   toc:
     - file: intro.md
     - file: notebooks/chapter1.md
+    - file: notebooks/sample.ipynb
 
 site:
   template: book-theme
