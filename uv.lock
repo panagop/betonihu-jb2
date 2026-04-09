@@ -117,7 +117,7 @@ wheels = [
 [[package]]
 name = "betonihu-jb2"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "jupyter-book" },
     { name = "matplotlib" },
