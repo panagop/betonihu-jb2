@@ -1,0 +1,8 @@
+﻿/* Fix code output readability in light mode */
+[data-theme="light"] .code-output,
+[data-theme="light"] .cell-output,
+[data-theme="light"] [class*="output"] pre,
+[data-theme="light"] [class*="output"] .pre {
+  background-color: #f5f5f5 !important;
+  color: #333 !important;
+}
