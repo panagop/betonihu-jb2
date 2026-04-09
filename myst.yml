@@ -6,10 +6,17 @@ project:
     - name: panagop
   github: https://github.com/panagop/betonihu-jb2
   jupyter: true
+  bibliography:
+    - references.bib
   toc:
     - file: intro.md
     - file: notebooks/chapter1.md
+    - file: notebooks/materials.md
+      children:
+        - file: notebooks/mix_design.md
+    - file: notebooks/bending.md
     - file: notebooks/sample.ipynb
+    - file: notebooks/references.md
 
 site:
   template: book-theme
