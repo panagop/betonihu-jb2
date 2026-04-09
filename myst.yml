@@ -11,5 +11,3 @@ project:
 
 site:
   template: book-theme
-  options:
-    base_url: /betonihu-jb2
