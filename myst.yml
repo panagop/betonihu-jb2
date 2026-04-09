@@ -5,6 +5,7 @@ project:
   authors:
     - name: panagop
   github: https://github.com/panagop/betonihu-jb2
+  jupyter: true
   toc:
     - file: intro.md
     - file: notebooks/chapter1.md
