@@ -1,11 +1,30 @@
-﻿/* Fix thebe/Jupyter output readability in light mode */
-[data-theme="light"] .jp-OutputArea-output,
-[data-theme="light"] .jp-OutputArea-output pre,
-[data-theme="light"] .jp-OutputArea,
-[data-theme="light"] .jp-OutputArea-child,
-[data-theme="light"] .thebe-output,
-[data-theme="light"] .jp-RenderedText,
-[data-theme="light"] .jp-RenderedText pre {
+﻿/* Fix thebe/Jupyter output readability in light mode.
+   Thebe loads JupyterLab CSS dynamically, so we need broad selectors
+   and !important to override. Only apply when NOT in dark mode. */
+
+:root:not(.dark) .jp-OutputArea,
+:root:not(.dark) .jp-OutputArea-child,
+:root:not(.dark) .jp-OutputArea-output,
+:root:not(.dark) .jp-OutputArea-output pre,
+:root:not(.dark) .jp-RenderedText,
+:root:not(.dark) .jp-RenderedText pre,
+:root:not(.dark) .thebe-output,
+:root:not(.dark) .thebe-output pre,
+:root:not(.dark) .jp-OutputArea-output[data-mime-type="text/plain"],
+:root:not(.dark) .jp-OutputArea-output[data-mime-type="text/plain"] pre {
+  background-color: #f8f8f8 !important;
+  color: #333 !important;
+}
+
+/* Fallback: also target by absence of data-theme="dark" */
+:not([data-theme="dark"]) .jp-OutputArea,
+:not([data-theme="dark"]) .jp-OutputArea-child,
+:not([data-theme="dark"]) .jp-OutputArea-output,
+:not([data-theme="dark"]) .jp-OutputArea-output pre,
+:not([data-theme="dark"]) .jp-RenderedText,
+:not([data-theme="dark"]) .jp-RenderedText pre,
+:not([data-theme="dark"]) .thebe-output,
+:not([data-theme="dark"]) .thebe-output pre {
   background-color: #f8f8f8 !important;
   color: #333 !important;
 }
