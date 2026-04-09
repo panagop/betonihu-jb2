@@ -1,8 +1,11 @@
-﻿/* Fix code output readability in light mode */
-[data-theme="light"] .code-output,
-[data-theme="light"] .cell-output,
-[data-theme="light"] [class*="output"] pre,
-[data-theme="light"] [class*="output"] .pre {
-  background-color: #f5f5f5 !important;
+﻿/* Fix thebe/Jupyter output readability in light mode */
+[data-theme="light"] .jp-OutputArea-output,
+[data-theme="light"] .jp-OutputArea-output pre,
+[data-theme="light"] .jp-OutputArea,
+[data-theme="light"] .jp-OutputArea-child,
+[data-theme="light"] .thebe-output,
+[data-theme="light"] .jp-RenderedText,
+[data-theme="light"] .jp-RenderedText pre {
+  background-color: #f8f8f8 !important;
   color: #333 !important;
 }
