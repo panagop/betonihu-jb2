@@ -64,11 +64,12 @@ uv run python build_pdf.py
 Output: `exports/betonihu-book.pdf`
 
 ### How It Works
-MyST v1.8.x has a bug where **Greek Unicode characters in headings and text are converted to LaTeX math commands** (e.g. `Π` → `\Pi`, `α` → `\alpha`). The `build_pdf.py` script works around this:
+MyST v1.8.x has a bug where **Greek Unicode characters in headings and text are converted to LaTeX math commands** (e.g. `Π` → `\Pi`, `α` → `\alpha`). It also **mangles Greek text inside verbatim (code) blocks** by splitting characters with spaces. The `build_pdf.py` script works around both issues:
 1. Runs `uv run jupyter-book build --pdf` to generate `.tex` files in `exports/betonihu-book_pdf_tex/`
-2. Post-processes all `.tex` files to convert Greek math commands back to Unicode
-3. Adds XeLaTeX preamble (`fontspec`, `polyglossia`, `amssymb`) with Greek language support and Windows fonts (Times New Roman, Calibri, Consolas)
-4. Compiles with `xelatex` (3 passes + BibTeX for cross-references)
+2. For `.ipynb` files: restores verbatim blocks from original notebook cells (source + outputs), replacing the mangled TeX verbatim content
+3. Post-processes all `.tex` files to convert Greek math commands back to Unicode in headings and body text
+4. Adds XeLaTeX preamble (`fontspec`, `polyglossia`, `amssymb`, `geometry`, `mdframed`, `fancyvrb`) with Greek language support and fonts (Fira Sans, Fira Mono, Cascadia Mono for Greek monospace fallback)
+5. Compiles with `xelatex` (3 passes + BibTeX for cross-references)
 
 ### Config
 In `myst.yml`, the export format is set to `tex+pdf`:

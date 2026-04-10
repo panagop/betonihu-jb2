@@ -37,6 +37,58 @@ GREEK_MAP = {
 
 TEX_DIR = Path("exports/betonihu-book_pdf_tex")
 OUTPUT_PDF = Path("exports/betonihu-book.pdf")
+NOTEBOOKS_DIR = Path("notebooks")
+
+
+def find_notebook_for_tex(tex_file: Path) -> Path | None:
+    """Find the .ipynb source for a TeX file, if any."""
+    for nb_path in NOTEBOOKS_DIR.glob("*.ipynb"):
+        nb_name = nb_path.stem.replace("_", "-")
+        if tex_file.stem.endswith(nb_name):
+            return nb_path
+    return None
+
+
+def fix_verbatim_from_notebook(content: str, notebook_path: Path) -> str:
+    """Replace mangled verbatim blocks with original notebook cell content."""
+    import json
+
+    nb = json.load(open(notebook_path, "r", encoding="utf-8"))
+
+    # Build ordered list: for each code cell, source text then output text
+    originals = []
+    for cell in nb["cells"]:
+        if cell["cell_type"] == "code":
+            originals.append("".join(cell["source"]))
+            for output in cell.get("outputs", []):
+                text = None
+                if output.get("output_type") == "stream":
+                    text = "".join(output.get("text", []))
+                elif output.get("output_type") == "execute_result":
+                    data = output.get("data", {})
+                    if "text/plain" in data:
+                        d = data["text/plain"]
+                        text = "".join(d) if isinstance(d, list) else d
+                # Skip display_data with images (e.g. matplotlib figures)
+                # — their text/plain repr doesn't appear as verbatim in TeX
+                if text:
+                    originals.append(text)
+
+    # Find verbatim blocks in TeX
+    pattern = re.compile(r"\\begin\{verbatim\}\n(.*?)\\end\{verbatim\}", re.DOTALL)
+    matches = list(pattern.finditer(content))
+
+    if len(matches) != len(originals):
+        print(f"  ⚠️  Verbatim/cell mismatch: {len(matches)} blocks vs {len(originals)} expected")
+        return content
+
+    # Replace in reverse order to preserve string positions
+    for match, orig in reversed(list(zip(matches, originals))):
+        orig_text = orig.rstrip("\n") + "\n"
+        replacement = f"\\begin{{verbatim}}\n{orig_text}\\end{{verbatim}}"
+        content = content[:match.start()] + replacement + content[match.end():]
+
+    return content
 
 
 def fix_greek_in_text(content: str) -> str:
@@ -89,14 +141,33 @@ def fix_greek_in_text(content: str) -> str:
 def add_xelatex_preamble(content: str) -> str:
     """Add fontspec and polyglossia packages for XeLaTeX Greek support."""
     preamble = (
-        "\n\\usepackage{fontspec}\n"
+        "\n\\usepackage[a4paper, margin=2.5cm]{geometry}\n"
+        "\\usepackage{fontspec}\n"
         "\\usepackage{amssymb}\n"
         "\\usepackage{polyglossia}\n"
         "\\setdefaultlanguage{greek}\n"
         "\\setotherlanguage{english}\n"
-        "\\setmainfont{Times New Roman}\n"
-        "\\setsansfont{Calibri}\n"
-        "\\setmonofont{Consolas}\n"
+        "\\setmainfont{Fira Sans}\n"
+        "\\setsansfont{Fira Sans}\n"
+        "\\setmonofont{Fira Mono}\n"
+        "\\newfontfamily\\greekfonttt{Cascadia Mono}\n"
+        "\n% Framed code blocks with smaller monospace font\n"
+        "\\usepackage{fancyvrb}\n"
+        "\\usepackage{xcolor}\n"
+        "\\usepackage{mdframed}\n"
+        "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{}\n"
+        "\\let\\oldverbatim\\verbatim\n"
+        "\\let\\endoldverbatim\\endverbatim\n"
+        "\\renewenvironment{verbatim}{\\footnotesize\\oldverbatim}{\\endoldverbatim}\n"
+        "\\surroundwithmdframed[\n"
+        "  linewidth=0.5pt,\n"
+        "  linecolor=gray!50,\n"
+        "  backgroundcolor=gray!5,\n"
+        "  innerleftmargin=8pt,\n"
+        "  innerrightmargin=8pt,\n"
+        "  innertopmargin=6pt,\n"
+        "  innerbottommargin=6pt\n"
+        "]{verbatim}\n"
     )
     # Insert after \documentclass{...} line
     content = content.replace(
@@ -126,6 +197,12 @@ def main():
     for tex_file in tex_files:
         content = tex_file.read_text(encoding="utf-8")
         original = content
+
+        # First, fix verbatim blocks from original notebook if available
+        notebook_path = find_notebook_for_tex(tex_file)
+        if notebook_path:
+            content = fix_verbatim_from_notebook(content, notebook_path)
+            print(f"    (restored verbatim from {notebook_path.name})")
 
         content = fix_greek_in_text(content)
 

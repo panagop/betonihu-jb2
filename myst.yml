@@ -13,6 +13,12 @@ project:
   exports:
     - format: tex+pdf
       output: exports/betonihu-book.pdf
+      articles:
+        - notebooks/materials.md
+        - notebooks/bending.md
+        - notebooks/sample.ipynb
+        - notebooks/beams_shear_reinforcement.ipynb
+        - notebooks/references.md
   toc:
     - file: intro.md
     - file: notebooks/chapter1.md
