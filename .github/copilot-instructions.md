@@ -49,3 +49,37 @@ notebooks/            ← chapter .md and .ipynb files
 - When adding dependencies: use `uv add`, then also update `requirements.txt` for Binder
 - When adding new pages: add to `toc:` in myst.yml
 - When adding new BibTeX entries: add to references.bib
+
+## PDF Export (Local Only)
+PDF export is local-only (not for GitHub Pages visitors). It uses XeLaTeX via MiKTeX.
+
+### Prerequisites
+- **MiKTeX** installed (provides `xelatex`, `bibtex`, and auto-installs missing LaTeX packages)
+- No Perl needed (the build script bypasses `latexmk`)
+
+### How to Build
+```bash
+uv run python build_pdf.py
+```
+Output: `exports/betonihu-book.pdf`
+
+### How It Works
+MyST v1.8.x has a bug where **Greek Unicode characters in headings and text are converted to LaTeX math commands** (e.g. `Π` → `\Pi`, `α` → `\alpha`). The `build_pdf.py` script works around this:
+1. Runs `uv run jupyter-book build --pdf` to generate `.tex` files in `exports/betonihu-book_pdf_tex/`
+2. Post-processes all `.tex` files to convert Greek math commands back to Unicode
+3. Adds XeLaTeX preamble (`fontspec`, `polyglossia`, `amssymb`) with Greek language support and Windows fonts (Times New Roman, Calibri, Consolas)
+4. Compiles with `xelatex` (3 passes + BibTeX for cross-references)
+
+### Config
+In `myst.yml`, the export format is set to `tex+pdf`:
+```yaml
+exports:
+  - format: tex+pdf
+    output: exports/betonihu-book.pdf
+```
+
+### Known Limitations
+- **SVG images**: Need Inkscape for PDF conversion; falls back to PNG via ImageMagick
+- **Iframes** (e.g. from `interactive_demo.md`): Cannot be rendered in PDF — ignored with a warning
+- **Greek in math `\text{}`**: The `η` character inside `\text{ ή }` in math mode triggers a MyST warning (cosmetic, does not break the build)
+- When the MyST Greek-to-Typst/LaTeX bug is fixed upstream, `build_pdf.py` can be replaced with a direct `uv run jupyter-book build --pdf` or `--typst` command

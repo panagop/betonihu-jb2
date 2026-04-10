@@ -14,3 +14,6 @@ _build/
 
 # Jupyter cache
 .jupyter_cache/
+
+# PDF export (local only)
+exports/

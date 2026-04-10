@@ -3,11 +3,16 @@ version: 1
 project:
   title: beton notes ihu
   authors:
-    - name: panagop
+    - name:
+        given: Giorgos
+        family: Panagopoulos
   github: https://github.com/panagop/betonihu-jb2
   jupyter: true
   bibliography:
     - references.bib
+  exports:
+    - format: tex+pdf
+      output: exports/betonihu-book.pdf
   toc:
     - file: intro.md
     - file: notebooks/chapter1.md
@@ -18,6 +23,7 @@ project:
     - file: notebooks/sample.ipynb
     - file: notebooks/interactive_demo.md
     - file: notebooks/references.md
+    - file: notebooks/beams_shear_reinforcement.ipynb
 
 site:
   template: book-theme
