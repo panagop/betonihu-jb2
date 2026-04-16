@@ -138,11 +138,22 @@ def fix_greek_in_text(content: str) -> str:
     return "".join(parts)
 
 
+def add_bookmarksnumbered(content: str) -> str:
+    """Add bookmarksnumbered option to hypersetup so PDF bookmarks show section numbers."""
+    content = content.replace(
+        "\\hypersetup{\n  colorlinks,",
+        "\\hypersetup{\n  bookmarksnumbered=true,\n  colorlinks,",
+        1,
+    )
+    return content
+
+
 def add_xelatex_preamble(content: str) -> str:
     """Add fontspec and polyglossia packages for XeLaTeX Greek support."""
     preamble = (
         "\n\\usepackage[a4paper, margin=2.5cm]{geometry}\n"
         "\\usepackage{fontspec}\n"
+        "\\usepackage{unicode-math}\n"
         "\\usepackage{amssymb}\n"
         "\\usepackage{polyglossia}\n"
         "\\setdefaultlanguage{greek}\n"
@@ -209,6 +220,7 @@ def main():
         # Add XeLaTeX preamble only to the main file
         if tex_file.name == "betonihu-book.tex":
             content = add_xelatex_preamble(content)
+            content = add_bookmarksnumbered(content)
 
         if content != original:
             tex_file.write_text(content, encoding="utf-8")

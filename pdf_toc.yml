@@ -1,0 +1,19 @@
+format: jb-book
+root: intro
+parts:
+  - caption: Materials
+    chapters:
+      - file: notebooks/chapter1.md
+      - file: notebooks/materials.md
+        sections:
+          - file: notebooks/mix_design.md
+          - file: content/rc1/enal_loads.md
+  - caption: Structural Analysis
+    chapters:
+      - file: notebooks/bending.md
+        sections:
+          - file: notebooks/sample.ipynb
+      - file: notebooks/beams_shear_reinforcement.ipynb
+  - caption: References
+    chapters:
+      - file: notebooks/references.md

@@ -1,0 +1,77 @@
+format: jb-book
+root: docs/index
+chapters:
+  - file: 1-dedomena
+    sections:
+      - file: 1-1-geometria
+  - file: 2-ypologismos-fortion
+    sections:
+      - file: 2-1-fortia-plakon
+      - file: 2-2-fortia-dokon
+      - file: 2-3-seismos
+  - file: 3-entatika-megethi
+  - file: 4-diastasiologisi-dokon
+    sections:
+      - file: 4-1-diastasiologisi-se-kampsi
+        sections:
+          - file: 4-1-1-times-schediasmoy-ton-ylikon
+          - file: 4-1-2-ypologismos-efelkyomenoy-oplismoy
+            sections:
+              - file: 4-1-2-1-elachistos-megistos-efelkyomenos-oplismos
+              - file: 4-1-2-2-efelkyomenos-oplismos-anoigmatos
+              - file: 4-1-2-3-efelkyomenos-oplismos-stin-aristeri-stirixi
+              - file: 4-1-2-4-efelkyomenos-oplismos-sti-dexia-stirixi
+              - file: 4-1-2-5-sygkentrotiki-topothetisi-efelkyomenoy-oplismoy-dokon
+          - file: 4-1-3-ypologismos-apaitoymenoy-thlivomenoy-oplismoy
+          - file: 4-1-4-teliki-topothetisi-diamikoys-oplismoy-dokon
+      - file: 4-2-ypologismos-ropon-antochis
+      - file: 4-3-diastasiologisi-se-diatmisi
+        sections:
+          - file: 4-3-1-times-schediasmoy-ton-ylikon
+          - file: 4-3-2-geometria
+          - file: 4-3-3-syndyasmoi-draseon
+          - file: 4-3-4-ypologismos-ikanotikon-temnoyson
+          - file: 4-3-5-ypologismos-oplismoy-diatmisis-aristeris-stirixis
+            sections:
+              - file: 4-3-5-1-temnoyses-schediasmoy
+              - file: 4-3-5-2-aristeri-stirixi-1os-elegchos
+              - file: 4-3-5-3-aristeri-stirixi-2os-elegchos
+              - file: 4-3-5-4-aristeri-stirixi-3os-elegchos
+          - file: 4-3-6-ypologismos-oplismoy-diatmisis-dexias-stirixis
+  - file: 5-diastastiologisi-ypostylomaton
+    sections:
+      - file: 5-1-geometria
+      - file: 5-2-diastasiologisi-se-kampsi-me-axoniki-dynami
+        sections:
+          - file: 5-2-1-elachistes-megistes-apaitiseis-oplismoy
+          - file: 5-2-2-akraios-stylos
+          - file: 5-2-3-esoterikos-stylos
+      - file: 5-3-ypologismos-ropon-antochis-ikanotikon-temnoyson
+        sections:
+          - file: 5-3-1-akraios-stylos
+          - file: 5-3-2-esoterikos-stylos
+      - file: 5-4-diastastiologisi-se-diatmisi
+        sections:
+          - file: 5-4-1-akraios-stylos
+            sections:
+              - file: 5-4-1-1-1os-elegchos
+              - file: 5-4-1-2-2os-elegchos
+              - file: 5-4-1-3-3os-elegchos
+          - file: 5-4-2-esoterikos-stylos
+      - file: 5-5-elegchos-perisfixis
+        sections:
+          - file: 5-5-1-akraios-stylos
+            sections:
+              - file: 5-5-1-1-michaniko-ogkometriko-pososto-toy-egkarsioy-oplismoy
+              - file: 5-5-1-2-syntelestis-apodotikotitas-tis-perisfixis
+              - file: 5-5-1-3-elegchos-tis-anisosis
+          - file: 5-5-2-esoterikos-stylos
+  - file: 6-agkyroseis-oplismon
+    sections:
+      - file: 6-1-tasi-synafeias
+      - file: 6-2-vasiko-mikos-agkyrosis
+      - file: 6-3-mikos-agkyrosis-schediasmoy
+  - file: 7-paratiriseis-sto-schedio
+    sections:
+      - file: 7-1-klimaka-kai-pachi-grammon
+      - file: 7-2-miki-agkyrosis

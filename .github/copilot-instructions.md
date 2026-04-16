@@ -84,3 +84,27 @@ exports:
 - **Iframes** (e.g. from `interactive_demo.md`): Cannot be rendered in PDF — ignored with a warning
 - **Greek in math `\text{}`**: The `η` character inside `\text{ ή }` in math mode triggers a MyST warning (cosmetic, does not break the build)
 - When the MyST Greek-to-Typst/LaTeX bug is fixed upstream, `build_pdf.py` can be replaced with a direct `uv run jupyter-book build --pdf` or `--typst` command
+
+## Conditional Content (PDF vs Website)
+MyST supports visibility tags to include/exclude blocks per export format:
+- `no-html` — exclude from website (PDF only)
+- `no-pdf` — exclude from PDF (website only)
+- `no-tex` — exclude from LaTeX PDF specifically
+- `no-typst` — exclude from Typst PDF specifically
+
+Usage with block metadata:
+```markdown
++++ {"no-html": true}
+This content only appears in PDF.
++++
+```
+
+Usage with directives:
+```markdown
+:::{note}
+:class: no-pdf
+This note only appears on the website.
+:::
+```
+
+For notebook cells, add the tag (e.g. `no-pdf`) to the cell metadata `tags` array.

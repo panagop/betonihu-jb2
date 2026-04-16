@@ -12,16 +12,20 @@ project:
     - references.bib
   exports:
     - format: tex+pdf
+      template: plain_latex_book
       output: exports/betonihu-book.pdf
-      articles:
-        - notebooks/materials.md
-        - notebooks/bending.md
-        - notebooks/sample.ipynb
-        - notebooks/beams_shear_reinforcement.ipynb
-        - notebooks/references.md
+      # toc: pdf_toc.yml
+      toc: pdf_rc2_ypodeigma.yml
+      # articles:
+      #   - notebooks/materials.md
+      #   - notebooks/bending.md
+      #   - notebooks/sample.ipynb
+      #   - notebooks/beams_shear_reinforcement.ipynb
+      #   - notebooks/references.md
   toc:
     - file: intro.md
     - file: notebooks/chapter1.md
+    - file: content/rc1/enal_loads.md
     - file: notebooks/materials.md
       children:
         - file: notebooks/mix_design.md
@@ -35,3 +39,4 @@ site:
   template: book-theme
   options:
     style: custom.css
+    hide_authors: true
